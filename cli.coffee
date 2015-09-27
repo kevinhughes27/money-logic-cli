@@ -8,10 +8,14 @@ syncLoop = new LoopNext().syncLoop
 # and newCategory is a string e.g. 'Restaurants'
 #
 # e.g. to update all Fast Food to Restaurants
-# bulkUpdate('.sf-category-47-name', 'Restaurants')
+# bulkUpdate('Fast food', 'Restaurants')
+#
+# *Note only works if you filter down to just the sub category you are bulk updating
 #
 exports.bulkUpdate = (oldCategory, newCategory) ->
-  nodes = $(oldCategory)
+  selector = selectorForCategory(oldCategory)
+
+  nodes = $(selector)
   iterations = nodes.length
 
   syncLoop(iterations, (l) ->
@@ -24,7 +28,12 @@ exports.bulkUpdate = (oldCategory, newCategory) ->
       l.next()
   )
 
-  console.log('syncLoop done')
+selectorForCategory = (name) ->
+  node = $('td[data-col="Category"]').find(".sf-sub-cat:contains('#{name}')")[0]
+  $span = $(node).find("span:contains('#{name}')")
+  selector = "." + $span.attr('class')
+  console.log("selector = #{selector} for category '#{name}'")
+  selector
 
 update = (node, newCategory) ->
   tr = $(node).closest('tr')[0]
@@ -41,7 +50,7 @@ update = (node, newCategory) ->
 
     delay 500, ->
       console.log('clicking category')
-      category = $('.sf-sublist').find('div[title="Restaurants"]')[1]
+      category = $('.sf-sublist').find("div[title='#{newCategory}']")[1]
       $(category).click()
 
       delay 500, ->

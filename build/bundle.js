@@ -1,5 +1,5 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.moneyLogicCli = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var $, LoopNext, delay, syncLoop, update;
+var $, LoopNext, delay, selectorForCategory, syncLoop, update;
 
 $ = require('jquery-browserify');
 
@@ -10,10 +10,11 @@ LoopNext = require('loopnext');
 syncLoop = new LoopNext().syncLoop;
 
 exports.bulkUpdate = function(oldCategory, newCategory) {
-  var iterations, nodes;
-  nodes = $(oldCategory);
+  var iterations, nodes, selector;
+  selector = selectorForCategory(oldCategory);
+  nodes = $(selector);
   iterations = nodes.length;
-  syncLoop(iterations, function(l) {
+  return syncLoop(iterations, function(l) {
     var idx;
     idx = l.iteration();
     console.log("syncLoop " + idx + " of " + iterations);
@@ -24,7 +25,15 @@ exports.bulkUpdate = function(oldCategory, newCategory) {
       return l.next();
     });
   });
-  return console.log('syncLoop done');
+};
+
+selectorForCategory = function(name) {
+  var $span, node, selector;
+  node = $('td[data-col="Category"]').find(".sf-sub-cat:contains('" + name + "')")[0];
+  $span = $(node).find("span:contains('" + name + "')");
+  selector = "." + $span.attr('class');
+  console.log("selector = " + selector + " for category '" + name + "'");
+  return selector;
 };
 
 update = function(node, newCategory) {
@@ -42,7 +51,7 @@ update = function(node, newCategory) {
     return delay(500, function() {
       var category;
       console.log('clicking category');
-      category = $('.sf-sublist').find('div[title="Restaurants"]')[1];
+      category = $('.sf-sublist').find("div[title='" + newCategory + "']")[1];
       $(category).click();
       return delay(500, function() {
         var saveButton;
