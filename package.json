@@ -1,0 +1,16 @@
+{
+  "name": "money-logic-cli",
+  "description": "a JS cli for BMO money logic",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Kevin Hughes",
+  "scripts": {
+    "build": "browserify -s moneyLogicCli -t coffeeify cli.coffee > build/bundle.js"
+  },
+  "dependencies": {
+    "browserify": "^11.2.0",
+    "coffeeify": "^1.1.0",
+    "jquery-browserify": "^1.8.1",
+    "loopnext": "^0.0.3"
+  }
+}
