@@ -70,8 +70,8 @@ update = (node, newCategory) ->
 
     delay 500, ->
       console.log('clicking category')
-      category = $('.sf-sublist').find("div[title='#{newCategory}']")[1]
-      $(category).click()
+      $category = $('.sf-sublist').find("div[title='#{newCategory}']").last()
+      $category.click()
 
       delay 500, ->
         console.log('saving...')

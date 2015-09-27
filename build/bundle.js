@@ -66,10 +66,10 @@ update = function(node, newCategory) {
     opener = modal.find('.sf-button-opener')[0];
     $(opener).click();
     return delay(500, function() {
-      var category;
+      var $category;
       console.log('clicking category');
-      category = $('.sf-sublist').find("div[title='" + newCategory + "']")[1];
-      $(category).click();
+      $category = $('.sf-sublist').find("div[title='" + newCategory + "']").last();
+      $category.click();
       return delay(500, function() {
         var saveButton;
         console.log('saving...');
