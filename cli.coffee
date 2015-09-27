@@ -28,6 +28,26 @@ exports.bulkUpdate = (oldCategory, newCategory) ->
       l.next()
   )
 
+# apply a rule based on the amount of a transaction
+# for example I use this for my rent which Money Logic can't classify
+# since they only have rules based on description.
+#
+# amountRule('-$1,600.00', 'Mortgage/Rent')
+#
+exports.amountRule = (amount, category) ->
+  nodes = $('td[data-col="Amount"]').find("span:contains('#{amount}')")
+  iterations = nodes.length
+
+  syncLoop(iterations, (l) ->
+    idx = l.iteration()
+    console.log("syncLoop #{idx} of #{iterations}")
+
+    delay 2000, ->
+      node = nodes[idx]
+      update(node, category)
+      l.next()
+  )
+
 selectorForCategory = (name) ->
   node = $('td[data-col="Category"]').find(".sf-sub-cat:contains('#{name}')")[0]
   $span = $(node).find("span:contains('#{name}')")

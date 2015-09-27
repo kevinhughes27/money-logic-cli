@@ -20,4 +20,10 @@ then:
   moneyLogicCli.bulkUpdate('Fast food', 'Restaurants')
 ```
 
+or
+
+```javascript
+  moneyLogicCli.amountRule('-$1,600.00', 'Mortgage/Rent')
+```
+
 More features coming as I need them.

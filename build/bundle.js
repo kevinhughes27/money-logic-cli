@@ -27,6 +27,23 @@ exports.bulkUpdate = function(oldCategory, newCategory) {
   });
 };
 
+exports.amountRule = function(amount, category) {
+  var iterations, nodes;
+  nodes = $('td[data-col="Amount"]').find("span:contains('" + amount + "')");
+  iterations = nodes.length;
+  return syncLoop(iterations, function(l) {
+    var idx;
+    idx = l.iteration();
+    console.log("syncLoop " + idx + " of " + iterations);
+    return delay(2000, function() {
+      var node;
+      node = nodes[idx];
+      update(node, category);
+      return l.next();
+    });
+  });
+};
+
 selectorForCategory = function(name) {
   var $span, node, selector;
   node = $('td[data-col="Category"]').find(".sf-sub-cat:contains('" + name + "')")[0];
