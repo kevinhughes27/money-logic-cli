@@ -17,7 +17,7 @@ First you need to include the script:
 then:
 
 ```javascript
-  moneyLogicCli.bulkUpdate('.sf-category-47-name', 'Restaurants')
+  moneyLogicCli.bulkUpdate('Fast food', 'Restaurants')
 ```
 
 More features coming as I need them.
