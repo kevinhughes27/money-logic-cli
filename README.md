@@ -1,7 +1,7 @@
 money-logic-cli
 ===============
 
-A javascript CLI for BMO Money Logic. So far the only function is bulkUpdate which lets you mass re-assign a category since Money Logic doesn't have bulk operations. I think the browser window needs to stay active or execution might get cut off by something.
+A javascript CLI for BMO Money Logic circa 2014. I added a bulkUpdate function which let you mass re-assign a category since at that time Money Logic did't have bulk operations. It was a little buggy and you had to stay focused on the window or else it crashed. I think the site detected inactivity and paused any running scripts. I used it to do a large re-classification that would have taken a while to do manually. The site now has this feature built in.
 
 Usage:
 ------
@@ -26,4 +26,7 @@ or
   moneyLogicCli.amountRule('-$1,600.00', 'Mortgage/Rent')
 ```
 
-More features coming as I need them.
+Disclaimer:
+-----------
+
+You probably shouldn't use this script unless you've read and understood every line of code in it. The usage documentation above was intended for myself and this project should serve as an interesting example of adding javascript to enhance a website you use.
